@@ -1,6 +1,7 @@
 import Cardproducto from '@/modules/productos/components/cardproducto'
 import { Productotype } from '@/modules/productos/types/productotypes'
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Pagination, Rating, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Pagination, Stack, TextField, Typography } from '@mui/material'
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
  {/**limite = 10
@@ -30,6 +31,8 @@ const [loading, setLoading] = useState(false);
 const [busqueda, setBusqueda] = useState("");
 const [pagina, setPagina] = useState(default_page);
 const [totalpagina, setTotal] = useState(0);
+
+const route = useRouter();
 useEffect(()=>{
 
     setLoading(true);
@@ -79,7 +82,11 @@ setTotal(total_pag);
     {loading && <Typography>Cargando productos...</Typography>}
 
         {producto.map((producto ) =>  (
-          <Cardproducto key={producto.id} producto={producto} />
+          <Cardproducto key={producto.id} producto={producto} onClick={
+            ()=>{
+              route.push(`/productos/${producto.id}`);
+              
+            }} />
         ))}
     
     <Pagination count={totalpagina} variant="outlined" shape="rounded" onChange={(e, pagina) => {

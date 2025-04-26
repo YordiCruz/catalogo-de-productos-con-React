@@ -1,25 +1,28 @@
 import { Box, Card, CardActionArea, CardMedia, CardContent, Typography, Rating, Button } from '@mui/material'
 import React from 'react'
 import {  Productotype } from '../types/productotypes'
-import { useRouter } from 'next/router';
+
 
 interface CardproductoProps {
   producto: Productotype;
+
+  onClick: () => void;
   
 }
-const Cardproducto = ({producto}: CardproductoProps ) => {
-  const router = useRouter();
+const Cardproducto = ({producto, onClick}: CardproductoProps ) => {
+  
   return (
     <div>
       <Box >
         {/* sx es como decir style */}
       <Card variant='outlined'>
-      <CardActionArea sx={{display: "flex"}}>
+      <CardActionArea component="div" sx={{display: "flex"}}>
         <CardMedia
           component="img"
           //height="140"
           image= {producto.thumbnail}
           alt="green iguana"
+          onClick={onClick}
           sx={
             {
           width:"300px"
@@ -28,7 +31,9 @@ const Cardproducto = ({producto}: CardproductoProps ) => {
           }
         />
         <CardContent sx={{flexGrow: 1}}>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" onClick={onClick}
+          sx={{cursor: "pointer", '&:hover': { textDecoration: 'underline', color: 'primary.main' }, }}
+          >
             {producto.title}
           </Typography>
          
@@ -61,8 +66,9 @@ const Cardproducto = ({producto}: CardproductoProps ) => {
           //tambien podemos navegar con el .replace solo que este elimina el historial no puedes volver hacia atras
           //con el .push se puede volver hacia atras
           //se trbaja mejor con el yuyuids para que sea mas dificil de decifrar
-          router.push(`/productos/${producto.id}`)
-        }}>Ver detalle del producto </Button>
+        
+        }}>Add to cart
+        </Button>
         </CardContent>
       </CardActionArea>
     </Card>
