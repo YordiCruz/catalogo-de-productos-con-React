@@ -1,3 +1,4 @@
+import MainLayout from '@/common/components/MainLayout';
 import { Productotype } from '@/modules/productos/types/productotypes';
 import { Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, MenuItem, Rating, Select, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -60,8 +61,8 @@ const Paginadetalleproducto = () => {
   }
   
     return (
-      <Container maxWidth={"xl"}>
-
+      <MainLayout titulo="detalle del producto" >
+        {loading && <Typography>Cargando producto...</Typography>}
       {/* para evitar el signo ? se usa el operador ternario con el && con eso indicamos que si producto es diferente de null */}
       {producto && (
          <Grid container> 
@@ -206,7 +207,7 @@ const Paginadetalleproducto = () => {
 
 
      
-      </Container>
+      </MainLayout>
 
   
   )

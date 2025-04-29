@@ -1,6 +1,8 @@
+import MainLayout from '@/common/components/MainLayout';
+import { useCard } from '@/modules/compras/context/Cardpro';
 import Cardproducto from '@/modules/productos/components/cardproducto'
 import { Productotype } from '@/modules/productos/types/productotypes'
-import { Box, Button, Container, Pagination, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Pagination, Stack, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
@@ -33,6 +35,9 @@ const [pagina, setPagina] = useState(default_page);
 const [totalpagina, setTotal] = useState(0);
 
 const route = useRouter();
+
+const {agregarProducto} = useCard();
+
 useEffect(()=>{
 
     setLoading(true);
@@ -54,8 +59,9 @@ setTotal(total_pag);
 },[pagina, busqueda]); //skip depende de la pagina 
 
   return (
-    <div>
-     <Container maxWidth="xl" >
+    
+
+     <MainLayout titulo="Productos" >
 
      <Box sx={{marginBottom: 2}}>
      <Typography variant="h5" fontWeight={"bold"}>Resultados</Typography>
@@ -75,19 +81,27 @@ setTotal(total_pag);
         //necesitamos reiniciar el estado de la pagina debido a que realiza una busqueda desde la pgina 
         //en que se quedo de la anterior busqueda 
         setPagina(default_page);
-        }}/>
+      }}/>
     <Button>buscar
     </Button>
     <p>{busqueda}</p>
     {loading && <Typography>Cargando productos...</Typography>}
 
         {producto.map((producto ) =>  (
-          <Cardproducto key={producto.id} producto={producto} onClick={
-            ()=>{
+          <Cardproducto key={producto.id} producto={producto} 
+          
+          agregarProducto={() => {
+            agregarProducto({
+              ...producto,
+              quantity: 1
+            });
+          }}
+
+          onClick={ ()=>{
               route.push(`/productos/${producto.id}`);
               
             }} />
-        ))}
+          ))}
     
     <Pagination count={totalpagina} variant="outlined" shape="rounded" onChange={(e, pagina) => {
       console.warn('Pagina', pagina);
@@ -96,8 +110,9 @@ setTotal(total_pag);
     }} />
        
       </Stack>
-      </Container>
-    </div>
+      </MainLayout>
+  
+    
   )
 }
 

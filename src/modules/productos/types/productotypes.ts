@@ -25,8 +25,14 @@ export interface Productotype {
   total: number;
   skip: number;
   limit: number;
+
 }
 
+//con extends heredamos todas las propiedades de Productotype y agregamos la propiedad quantity
+export interface ProductoCarrito extends Productotype {
+  quantity: number;
+  
+}
 
 export interface Dimensions {
     width: number;

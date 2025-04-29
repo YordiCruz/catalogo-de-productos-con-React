@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const ListaTareas = () => {
   const [contador, setContador]= useState(10);
   const [mostrarDescripcion, setMostrarDescripcion] = useState(true);
-
+//el useeffect nos permite hacer peticion de recursos a nuestras apis
   //recibe como parametro una funcion de tipo flecha, y otro parametro que es un array, llamado arraya de dependencias
   //hay 3 casos en los que se puede trabajar con useefect, ver mas abajo
   useEffect(()=>{

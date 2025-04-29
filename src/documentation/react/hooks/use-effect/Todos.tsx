@@ -6,7 +6,6 @@ interface Todoprops {
 }
 
 const Todos = ({todos}: Todoprops) => {
- 
 
   return (
     <div>

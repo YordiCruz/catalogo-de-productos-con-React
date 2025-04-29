@@ -7,9 +7,10 @@ interface CardproductoProps {
   producto: Productotype;
 
   onClick: () => void;
+  agregarProducto: () => void
   
 }
-const Cardproducto = ({producto, onClick}: CardproductoProps ) => {
+const Cardproducto = ({producto, onClick, agregarProducto}: CardproductoProps ) => {
   
   return (
     <div>
@@ -62,12 +63,12 @@ const Cardproducto = ({producto, onClick}: CardproductoProps ) => {
             {producto.warrantyInformation}
             </Typography>
            
-        <Button variant='contained' onClick={() =>{
+        <Button variant='contained' onClick={agregarProducto
           //tambien podemos navegar con el .replace solo que este elimina el historial no puedes volver hacia atras
           //con el .push se puede volver hacia atras
           //se trbaja mejor con el yuyuids para que sea mas dificil de decifrar
         
-        }}>Add to cart
+        }>Add to cart
         </Button>
         </CardContent>
       </CardActionArea>
