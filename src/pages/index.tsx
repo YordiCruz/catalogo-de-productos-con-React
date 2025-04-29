@@ -13,6 +13,7 @@
 // import Seccionres from "@/documentation/react/hooks/use-context/seccionres";
 // import Todosprovid from "@/documentation/react/hooks/use-context/todosprovider";
 import MainLayout from "@/common/components/MainLayout";
+import Categorias from "@/modules/categoriaproductos/categorias";
 import {  Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 // import Paginatarea from "@/documentation/react/hooks/use-context/paginatarea";
@@ -77,7 +78,7 @@ const router = useRouter();
   
 
   </Box>
-
+<Categorias/>
 
   
     </MainLayout>
