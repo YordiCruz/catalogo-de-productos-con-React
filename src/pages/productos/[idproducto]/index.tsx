@@ -1,78 +1,109 @@
 import MainLayout from '@/common/components/MainLayout';
+import { useCard } from '@/modules/compras/context/Cardpro';
 import { Productotype } from '@/modules/productos/types/productotypes';
 import { Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, MenuItem, Rating, Select, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 const Paginadetalleproducto = () => {
+  const { agregarProducto } = useCard();	
   const router = useRouter();
   const [producto, setProducto] = useState<Productotype | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [imagenActiva, setImagenActiva] = useState<string>(
+    producto?.thumbnail ?? ""  
+  );
+
+  const [cantidad, setCantidad] = useState(1);
+
+  
   useEffect(() => {
-      // Verificar si router está listo y si tenemos idProducto
-      if (!router.isReady || !router.query.idproducto) return;
-
-      const idProducto = router.query.idproducto;
-      setLoading(true);
-      setError(null);
-
-      fetch(`https://dummyjson.com/products/${idProducto}`)
-          .then(res => {
-              if (!res.ok) {
-                  throw new Error(`Error ${res.status}: ${res.statusText}`);
-              }
-              return res.json();
-          })
-          .then(datos => {
-              setProducto(datos);
-              setLoading(false);
-          })
-          .catch(err => {
-              setError(err.message);
-              setLoading(false);
-              console.error('Fetch error:', err);
-          });
+    // Verificar si router está listo y si tenemos idProducto
+    if (!router.isReady || !router.query.idproducto) return;
+    
+    const idProducto = router.query.idproducto;
+    setLoading(true);
+    setError(null);
+    
+    fetch(`https://dummyjson.com/products/${idProducto}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then(datos => {
+      setProducto(datos);
+      setLoading(false);
+    })
+    .catch(err => {
+      setError(err.message);
+      setLoading(false);
+      console.error('Fetch error:', err);
+    });
   }, [router.isReady, router.query.idproducto]);
-
+  
   if (loading) {
-      return (
-          <Container maxWidth="xl">
+    return (
+      <Container maxWidth="xl">
               <Typography>Cargando producto...</Typography>
           </Container>
       );
-  }
-
-  if (error) {
+    }
+    
+    if (error) {
       return (
-          <Container maxWidth="xl">
+        <Container maxWidth="xl">
               <Typography color="error">Error: {error}</Typography>
           </Container>
       );
-  }
-
-  if (!producto) {
+    }
+    
+    if (!producto) {
       return (
-          <Container maxWidth="xl">
+        <Container maxWidth="xl">
               <Typography>No se encontró el producto</Typography>
           </Container>
       );
-  }
-  
+    }
+    
     return (
       <MainLayout titulo="detalle del producto" >
         {loading && <Typography>Cargando producto...</Typography>}
       {/* para evitar el signo ? se usa el operador ternario con el && con eso indicamos que si producto es diferente de null */}
       {producto && (
-         <Grid container> 
-         <Grid size={1}>Imagenes</Grid>
-         <Grid size={3}> 
+         <Grid container sx={{mt: "64px"}}> 
+         <Grid size={1}>Imagenes
+        {producto.images.map((imagen, index) => (
+          <CardMedia
+          
+            key={index}
+            component="img"
+            image= {imagen}
+            alt={`Imagen ${index + 1} del producto`}
+    sx={{
+      width: "100%",
+      mb: 2, // Espacio entre imágenes
+      border: imagenActiva === imagen ? "2px solid #1976d2" : "none",
+      "&:hover": { 
+        cursor: "pointer",
+        border: "2px solid #1976d2",
+        opacity: 0.9
+      }
+    }}
+    onMouseEnter={() => setImagenActiva(imagen)}
+          />
+        ))}
+
+         </Grid>
+         <Grid size={{xs: 12, md: 6, lg: 3}}> 
           <CardMedia
                    component="img"
                    //height="140"
                    //image= {producto?.thumbnail} // para evitar el signo ?
-                   image= {producto.thumbnail}
+                   image={imagenActiva || producto.thumbnail}
                    alt="green iguana"
                    sx={
                      {
@@ -81,7 +112,7 @@ const Paginadetalleproducto = () => {
                      }}
                  />
                  </Grid>
-         <Grid size={6}>   
+         <Grid size={{xs: 12, md: 6, lg: 3}}>   
                 
                  <CardContent sx={{flexGrow: 1}}>
                    <Typography gutterBottom variant="h5" component="div">
@@ -157,7 +188,7 @@ const Paginadetalleproducto = () => {
              </Grid>
 
 
-         <Grid size={2}>
+         <Grid size={{xs: 12, md: 6, lg: 3}}>
            <Card variant='outlined'>
              {/* cardcontent lo unico que hace es dar espaciado a todo el contenido*/}
              <CardContent>
@@ -177,13 +208,16 @@ const Paginadetalleproducto = () => {
                     id="demo-simple-select"
                     size="small"
                     fullWidth
-                    // value={age}
+                    value={cantidad}
                     startAdornment={
                       <Typography variant="body2" mr={1}>
                         Quantity:
                       </Typography>
                     }
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      const cantidad = e.target.value as number;
+                      setCantidad(cantidad);
+                    }}
                   >
                     {Array.from({ length: 100 }, (_, index) => (
                       <MenuItem key={index} value={index + 1}>
@@ -193,7 +227,13 @@ const Paginadetalleproducto = () => {
                   </Select>
 
                      
-                     <Button fullWidth variant='contained'>Add to cart</Button>
+                     <Button fullWidth variant='contained' onClick={() => {
+                       agregarProducto({
+                        ...producto, 
+                        quantity: cantidad
+                      })	;
+                     }} >
+                      Add to cart</Button>
                      <Button fullWidth variant='contained'>Buy now</Button>
                   
                    </Stack>

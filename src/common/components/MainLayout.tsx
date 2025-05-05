@@ -12,13 +12,14 @@ const drawer_ancho = "140px";
      titulo: string;
  }
 const MainLayout = ({ children, titulo }: Props) => { 
-    const {cartProducts} = useCard();
-    const open = true;
+    const {preciototal, cartProducts, eliminarProducto, actualizarCantidad} = useCard();
+    const existeproducto = cartProducts.length > 0;
+    const open = existeproducto;
     return (
         <div>
-            <Box sx={{mr: open ? {drawer_ancho} : 0}}>
+            <Box sx={{mr: open ? drawer_ancho : 0}}>
 
-            <Head>
+            <Head >
                 <title>{titulo}</title>
                 
             </Head>
@@ -39,13 +40,22 @@ const MainLayout = ({ children, titulo }: Props) => {
             >
             <Box sx={{textAlign: "center", p: 1}}>
                 <Typography variant='subtitle2'>Carrito</Typography>
-                <Typography variant='subtitle1' fontWeight={"bold"} color='red'>$89.99</Typography>
+                <Typography variant='subtitle1' fontWeight={"bold"} color='red'>
+                    ${preciototal}
+                </Typography>
                 <Button fullWidth variant='outlined' >Add to cart</Button>
             </Box>
             <Divider/>
             <Box sx={{p: 2}}>
                 {cartProducts.map((producto) => (
-                    <CardproductoCarrito key={producto.id} producto={producto} />
+                    <CardproductoCarrito key={producto.id} producto={producto} onDelete={() => {
+                        eliminarProducto(producto.id);                                           
+                    }} 
+                    onUpdatequantity={(quantity) => {
+                        actualizarCantidad(producto.id, quantity);
+                    }}
+
+                    />
                 ))}                
             </Box>
 

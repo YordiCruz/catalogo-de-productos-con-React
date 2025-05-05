@@ -13,9 +13,7 @@
 // import Seccionres from "@/documentation/react/hooks/use-context/seccionres";
 // import Todosprovid from "@/documentation/react/hooks/use-context/todosprovider";
 import MainLayout from "@/common/components/MainLayout";
-import Categorias from "@/modules/categoriaproductos/categorias";
-import {  Box, Button, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import Categorias from "./categoriaproductos/categorias";
 // import Paginatarea from "@/documentation/react/hooks/use-context/paginatarea";
 // import Todosprovider from "@/documentation/react/hooks/use-context/todosprovider";
 // import { Children } from "react";
@@ -32,7 +30,6 @@ import { useRouter } from "next/router";
 
 export default function Home() {
 //para navegar entre componentes
-const router = useRouter();
 
   //para trabajar con renderizado condicional
   //1ra forma
@@ -70,15 +67,8 @@ const router = useRouter();
   </Todosprovid> */}
 
 
-  <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", height:"100vh"}}>
-  <Typography variant="h1" textAlign={"center"}> material ui</Typography>
-    <Button variant="contained" onClick={()=>{ 
-      router.push("/productos");
-    }}>Ir a la pagina de productos</Button>
-  
-
-  </Box>
 <Categorias/>
+
 
   
     </MainLayout>
