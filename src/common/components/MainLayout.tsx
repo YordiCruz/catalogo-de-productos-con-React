@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import Header from './header'
-import Footer from './footer'
 import Head from 'next/head';
 import { Box, Button, Container, Divider, Drawer, Typography } from '@mui/material';
 import { useCard } from '@/modules/compras/context/Cardpro';
@@ -60,7 +59,8 @@ const MainLayout = ({ children, titulo }: Props) => {
             </Box>
 
             </Drawer>
-            <Footer/>
+
+
         </div>
     );
 }

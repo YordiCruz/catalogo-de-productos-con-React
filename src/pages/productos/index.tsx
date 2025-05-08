@@ -31,6 +31,7 @@ const Paginaproductos = () => {
 
 const { busqueda }  = useSearch();
 
+
 const [producto, setProducto] = useState<Productotype[]>([]);
 
 const [loading, setLoading] = useState(false);
@@ -67,16 +68,16 @@ setTotal(total_pag);
      <MainLayout titulo="Productos" >
 
      <Box sx={{marginBottom: 2}}>
-     <Typography variant="h5" fontWeight={"bold"}>Resultados</Typography>
+     {/* <Typography variant="h5" fontWeight={"bold"}>Resultados</Typography>
 
-      <Typography variant='body2' color='text.secondary'> Cheak each product page for other buying options</Typography>
+      <Typography variant='body2' color='text.secondary'> Cheak each product page for other buying options</Typography> */}
 
       </Box>
 
       
       <Stack spacing={2}>
-       {/**barra de busqueda */}
-
+       {/* *barra de busqueda */}
+{/* 
       <TextField id="outlined-basic" label="Buscar" variant="outlined" size="small" 
       onChange={() => {
       
@@ -86,7 +87,7 @@ setTotal(total_pag);
       }}/>
     <Button>buscar
     </Button>
-    <p>{busqueda}</p>
+    <p>{busqueda}</p> */}
     {loading && <Typography>Cargando productos...</Typography>}
 
         {producto.map((producto ) =>  (

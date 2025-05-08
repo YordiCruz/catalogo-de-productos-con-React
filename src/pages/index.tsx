@@ -14,6 +14,7 @@
 // import Todosprovid from "@/documentation/react/hooks/use-context/todosprovider";
 import MainLayout from "@/common/components/MainLayout";
 import Categorias from "./categoriaproductos/categorias";
+import Footer from "@/common/components/footer";
 // import Paginatarea from "@/documentation/react/hooks/use-context/paginatarea";
 // import Todosprovider from "@/documentation/react/hooks/use-context/todosprovider";
 // import { Children } from "react";
@@ -66,8 +67,10 @@ export default function Home() {
    <Paginatarea/>
   </Todosprovid> */}
 
+  <Categorias/>
 
-<Categorias/>
+
+
 
 
   

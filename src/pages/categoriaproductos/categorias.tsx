@@ -308,6 +308,7 @@ export const Categorias = () => {
           );
         })}
       </Box>
+
     </Box>
   );
 };

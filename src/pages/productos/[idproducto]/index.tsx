@@ -74,7 +74,7 @@ const Paginadetalleproducto = () => {
         {loading && <Typography>Cargando producto...</Typography>}
       {/* para evitar el signo ? se usa el operador ternario con el && con eso indicamos que si producto es diferente de null */}
       {producto && (
-         <Grid container sx={{mt: "64px"}}> 
+         <Grid container sx={{mt: "30px"}}> 
          <Grid size={1}>Imagenes
         {producto.images.map((imagen, index) => (
           <CardMedia
@@ -84,7 +84,8 @@ const Paginadetalleproducto = () => {
             image= {imagen}
             alt={`Imagen ${index + 1} del producto`}
     sx={{
-      width: "100%",
+      width: "50px",
+      ml: 8,
       mb: 2, // Espacio entre imágenes
       border: imagenActiva === imagen ? "2px solid #1976d2" : "none",
       "&:hover": { 

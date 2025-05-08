@@ -83,7 +83,7 @@ if (loading) {
      <MainLayout titulo="Productos" >
 
      <Box sx={{marginBottom: 2}}>
-     <Typography variant="h5" fontWeight={"bold"}>{slugcate}</Typography>
+     <Typography sx={{textAlign: "center"}} variant="h3" fontWeight={"bold"}>{slugcate}</Typography>
 
 
       </Box>
@@ -92,7 +92,7 @@ if (loading) {
       <Stack spacing={2}>
        {/**barra de busqueda */}
 
-      <TextField id="outlined-basic" label="Buscar" variant="outlined" size="small"
+      {/* <TextField id="outlined-basic" label="Buscar" variant="outlined" size="small"
       onChange={(e) => {
         const valor = e.target.value;
         setBusqueda(valor);
@@ -102,7 +102,7 @@ if (loading) {
       }}/>
     <Button>buscar
     </Button>
-    <p>{busqueda}</p>
+    <p>{busqueda}</p> */}
     {loading && <Typography>Cargando productos...</Typography>}
 
         {producto.map((producto ) =>  (
